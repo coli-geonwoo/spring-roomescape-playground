@@ -1,7 +1,5 @@
 package roomescape.service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +8,8 @@ import org.springframework.stereotype.Service;
 import roomescape.domain.Reservation;
 import roomescape.dto.request.ReservationSaveRequest;
 import roomescape.dto.response.ReservationResponse;
+import roomescape.exception.ErrorCode;
+import roomescape.exception.custom.ReservationException;
 
 @Service
 public class ReservationService {
@@ -39,6 +39,12 @@ public class ReservationService {
                 .filter(reservation -> reservation.getId() == id)
                 .findAny();
 
-        targetReservation.ifPresent(reservations::remove);
+        targetReservation
+                .ifPresentOrElse(
+                        reservations::remove,
+                        () -> {
+                            throw new ReservationException(ErrorCode.RESERVATION_NOT_FOUND);
+                        }
+                );
     }
 }
