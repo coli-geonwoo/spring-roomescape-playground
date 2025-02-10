@@ -16,7 +16,11 @@ import roomescape.service.ReservationService;
 @RestController
 public class ReservationApiController {
 
-    private final ReservationService reservationService = new ReservationService();
+    private final ReservationService reservationService;
+
+    public ReservationApiController(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
 
     @GetMapping("/reservations")
     public ResponseEntity<List<ReservationResponse>> getReservations() {

@@ -7,13 +7,13 @@ import roomescape.exception.custom.ReservationException;
 
 public class Reservation {
 
-    private final long id;
+    private final Long id;
     private final String name;
     private final LocalDate date;
     private final LocalTime time;
 
     public Reservation(
-            long id,
+            Long id,
             String name,
             LocalDate date,
             LocalTime time
